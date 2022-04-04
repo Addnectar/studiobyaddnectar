@@ -1795,6 +1795,7 @@
                     name="fullName"
                     placeholder="Adam Gelius"
                     class="
+                      name
                       w-full
                       border-0 border-b border-[#f1f1f1]
                       focus:border-primary focus:outline-none
@@ -1811,6 +1812,7 @@
                     name="email"
                     placeholder="example@yourmail.com"
                     class="
+                      contactemail
                       w-full
                       border-0 border-b border-[#f1f1f1]
                       focus:border-primary focus:outline-none
@@ -1827,6 +1829,7 @@
                     name="phone"
                     placeholder="+885 1254 5211 552"
                     class="
+                      contactnumber
                       w-full
                       border-0 border-b border-[#f1f1f1]
                       focus:border-primary focus:outline-none
@@ -1843,6 +1846,7 @@
                     rows="1"
                     placeholder="type your message here"
                     class="
+                      message
                       w-full
                       border-0 border-b border-[#f1f1f1]
                       focus:border-primary focus:outline-none
@@ -1854,7 +1858,10 @@
                 <div class="mb-0">
                   <button
                     type="submit"
+                    name="submit"
+                    id="contact-submit"
                     class="
+                      submit
                       inline-flex
                       items-center
                       justify-center
@@ -2504,6 +2511,65 @@
       }
 
       window.document.addEventListener("scroll", onScroll);
+    </script>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      (function () {
+        emailjs.init("5r2lUgK6jc058SOnX");
+      })();
+      function validate() {
+        let name = document.querySelector(".name");
+        let contactemail = document.querySelector(".contactemail");
+        let contactnumber = document.querySelector(".contactnumber");
+        let message = document.querySelector(".message");
+        let btn = document.querySelector(".submit");
+
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (name.value == "" || contactemail.value == "" || contactnumber.value == "" || message.value == "") {
+            emptyerror();
+          } else {
+            sendmail(name.value, contactemail.value, contactnumber.value, message.value);
+            success();
+          }
+        });
+      }
+      validate();
+
+      function sendmail(name, contactemail, contactnumber, message) {
+        emailjs.send("service_copyzw4", "template_ql62d8p", {
+          name: name,
+          contactemail: contactemail,
+          contactnumber: contactnumber,
+          message: message,
+        });
+      }
+
+      function emptyerror() {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Fields cannot be empty!",
+        });
+      }
+
+      function error() {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      }
+
+      function success() {
+        Swal.fire({
+          icon: "success",
+          text: 'Thank you for showing your interest. \n We will be in touch soon',
+          });
+      }
     </script>
   </body>
 </html>
