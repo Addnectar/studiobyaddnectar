@@ -2549,12 +2549,12 @@
           let purchaseemail = document.querySelector(".purchaseemail");
           let purchasephone = document.querySelector(".purchasephone");
           let purchaseformsubmit = document.querySelector(".purchaseformsubmit");
-          let planpurchase = "Standard Plan"
+          let planpurchase = "Standard"
           purchaseformsubmit.addEventListener("click", (e) => {
             if (purchasename.value == "" || purchasecompany == "" || purchaseemail.value == "" || purchasephone.value == "") {
               // emptyerror();
             } else {
-              purchasecustomersendmail(purchaseemail.value);
+              purchasecustomersendmail(purchasename.value, purchaseemail.value, planpurchase);
               purchaseaddnectarsendmail(purchasename.value, purchasecompany.value, purchaseemail.value, purchasephone.value, planpurchase);
               purchasesuccess();
             }
@@ -2569,12 +2569,12 @@
           let purchaseemail = document.querySelector(".purchaseemail");
           let purchasephone = document.querySelector(".purchasephone");
           let purchaseformsubmit = document.querySelector(".purchaseformsubmit");
-          let planpurchase = "Professional Plan"
+          let planpurchase = "Pro"
           purchaseformsubmit.addEventListener("click", (e) => {
             if (purchasename.value == "" || purchasecompany == "" || purchaseemail.value == "" || purchasephone.value == "") {
               // emptyerror();
             } else {
-              purchasecustomersendmail(purchaseemail.value);
+              purchasecustomersendmail(purchasename.value, purchaseemail.value, planpurchase);
               purchaseaddnectarsendmail(purchasename.value, purchasecompany.value, purchaseemail.value, purchasephone.value, planpurchase);
               purchasesuccess();
             }
@@ -2589,12 +2589,12 @@
           let purchaseemail = document.querySelector(".purchaseemail");
           let purchasephone = document.querySelector(".purchasephone");
           let purchaseformsubmit = document.querySelector(".purchaseformsubmit");
-          let planpurchase = "Premium Plan"
+          let planpurchase = "Premium"
           purchaseformsubmit.addEventListener("click", (e) => {
             if (purchasename.value == "" || purchasecompany == "" || purchaseemail.value == "" || purchasephone.value == "") {
               // emptyerror();
             } else {
-              purchasecustomersendmail(purchaseemail.value);
+              purchasecustomersendmail(purchasename.value, purchaseemail.value, planpurchase);
               purchaseaddnectarsendmail(purchasename.value, purchasecompany.value, purchaseemail.value, purchasephone.value, planpurchase);
               purchasesuccess();
             }
@@ -2613,10 +2613,12 @@
           message: message,
         });
       }
-      function purchasecustomersendmail(purchaseemail) {
+      function purchasecustomersendmail(purchasename, purchaseemail, planpurchase) {
         emailjs.init('YYZeWGeMzlN8YhWVv');
         emailjs.send("service_asjkx5s", "template_c7ab03k", {
-          customeremail: purchaseemail
+          customername: purchasename,
+          customeremail: purchaseemail,
+          planpurchase : planpurchase
         });
       }
       function purchaseaddnectarsendmail(purchasename, purchasecompany, purchaseemail, purchasephone, planpurchase) {
