@@ -953,9 +953,10 @@
                 
               </div>
               <div class="w-full">
-                <a
-                  href="javascript:void(0)"
+                <button
+                  type="submit"
                   class="
+                    standardpurchasesubmit
                     inline-block
                     text-base
                     font-medium
@@ -973,7 +974,7 @@
                   "
                 >
                   Purchase Now
-                </a>
+              </button>
                 <p
                   class="
                     text-sm
@@ -1074,9 +1075,10 @@
                 </p>
               </div>
               <div class="w-full">
-                <a
-                  href="javascript:void(0)"
+                <button
+                  type="submit"
                   class="
+                    popularpurchasesubmit
                     inline-block
                     text-base
                     font-medium
@@ -1094,7 +1096,7 @@
                   "
                 >
                   Purchase Now
-                </a>
+              </button>
                 <p class="text-sm font-medium text-slate-300 leading-loose mb-1">
                   First 5 days Free
                   <br/>15 day moneyback guarantee
@@ -1193,9 +1195,10 @@
                 
               </div>
               <div class="w-full">
-                <a
-                  href="javascript:void(0)"
+                <button
+                  type="submit"
                   class="
+                    premiumpurchasesubmit
                     inline-block
                     text-base
                     font-medium
@@ -1213,7 +1216,7 @@
                   "
                 >
                   Purchase Now
-                </a>
+                </button>
                 <p
                   class="
                     text-sm
@@ -2516,16 +2519,17 @@
     src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
     </script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-      (function () {
-        emailjs.init("5r2lUgK6jc058SOnX");
-      })();
+    <script>    // Contact us Form
       function validate() {
         let name = document.querySelector(".name");
         let contactemail = document.querySelector(".contactemail");
         let contactnumber = document.querySelector(".contactnumber");
         let message = document.querySelector(".message");
         let btn = document.querySelector(".submit");
+
+        let standardpurchasebtn = document.querySelector(".standardpurchasesubmit");
+        let popularpurchasebtn = document.querySelector(".popularpurchasesubmit");
+        let premiumpurchasebtn = document.querySelector(".premiumpurchasesubmit");
 
         btn.addEventListener("click", (e) => {
           e.preventDefault();
@@ -2536,10 +2540,72 @@
             success();
           }
         });
+
+        standardpurchasebtn.addEventListener("click", (e) => {
+          purchaseform()
+          e.preventDefault();
+          let purchasename = document.querySelector(".purchasename");
+          let purchasecompany= document.querySelector(".purchasecompany");
+          let purchaseemail = document.querySelector(".purchaseemail");
+          let purchasephone = document.querySelector(".purchasephone");
+          let purchaseformsubmit = document.querySelector(".purchaseformsubmit");
+          let planpurchase = "Standard Plan"
+          purchaseformsubmit.addEventListener("click", (e) => {
+            if (purchasename.value == "" || purchasecompany == "" || purchaseemail.value == "" || purchasephone.value == "") {
+              // emptyerror();
+            } else {
+              purchasecustomersendmail(purchaseemail.value);
+              purchaseaddnectarsendmail(purchasename.value, purchasecompany.value, purchaseemail.value, purchasephone.value, planpurchase);
+              purchasesuccess();
+            }
+          });
+        });
+
+        popularpurchasebtn.addEventListener("click", (e) => {
+          purchaseform()
+          e.preventDefault();
+          let purchasename = document.querySelector(".purchasename");
+          let purchasecompany= document.querySelector(".purchasecompany");
+          let purchaseemail = document.querySelector(".purchaseemail");
+          let purchasephone = document.querySelector(".purchasephone");
+          let purchaseformsubmit = document.querySelector(".purchaseformsubmit");
+          let planpurchase = "Professional Plan"
+          purchaseformsubmit.addEventListener("click", (e) => {
+            if (purchasename.value == "" || purchasecompany == "" || purchaseemail.value == "" || purchasephone.value == "") {
+              // emptyerror();
+            } else {
+              purchasecustomersendmail(purchaseemail.value);
+              purchaseaddnectarsendmail(purchasename.value, purchasecompany.value, purchaseemail.value, purchasephone.value, planpurchase);
+              purchasesuccess();
+            }
+          });
+        });
+
+        premiumpurchasebtn.addEventListener("click", (e) => {
+          purchaseform()
+          e.preventDefault();
+          let purchasename = document.querySelector(".purchasename");
+          let purchasecompany= document.querySelector(".purchasecompany");
+          let purchaseemail = document.querySelector(".purchaseemail");
+          let purchasephone = document.querySelector(".purchasephone");
+          let purchaseformsubmit = document.querySelector(".purchaseformsubmit");
+          let planpurchase = "Premium Plan"
+          purchaseformsubmit.addEventListener("click", (e) => {
+            if (purchasename.value == "" || purchasecompany == "" || purchaseemail.value == "" || purchasephone.value == "") {
+              // emptyerror();
+            } else {
+              purchasecustomersendmail(purchaseemail.value);
+              purchaseaddnectarsendmail(purchasename.value, purchasecompany.value, purchaseemail.value, purchasephone.value, planpurchase);
+              purchasesuccess();
+            }
+          });
+        });
       }
+
       validate();
 
       function sendmail(name, contactemail, contactnumber, message) {
+        emailjs.init("5r2lUgK6jc058SOnX")
         emailjs.send("service_copyzw4", "template_ql62d8p", {
           name: name,
           contactemail: contactemail,
@@ -2547,7 +2613,22 @@
           message: message,
         });
       }
-
+      function purchasecustomersendmail(purchaseemail) {
+        emailjs.init('YYZeWGeMzlN8YhWVv');
+        emailjs.send("service_asjkx5s", "template_c7ab03k", {
+          customeremail: purchaseemail
+        });
+      }
+      function purchaseaddnectarsendmail(purchasename, purchasecompany, purchaseemail, purchasephone, planpurchase) {
+        emailjs.init('YYZeWGeMzlN8YhWVv');
+        emailjs.send("service_asjkx5s", "template_8s2bt7q", {
+          customername: purchasename,
+          customercompany: purchasecompany,
+          customeremail: purchaseemail,
+          customerphone: purchasephone,
+          planpurchase : planpurchase
+        });
+      }
       function emptyerror() {
         Swal.fire({
           icon: "error",
@@ -2555,7 +2636,6 @@
           text: "Fields cannot be empty!",
         });
       }
-
       function error() {
         Swal.fire({
           icon: "error",
@@ -2563,12 +2643,130 @@
           text: "Something went wrong!",
         });
       }
-
       function success() {
         Swal.fire({
           icon: "success",
           text: 'Thank you for showing your interest. \n We will be in touch soon',
           });
+      }
+      function purchasesuccess() {
+        Swal.fire({
+          icon: "success",
+          text: 'Thank you for registering with us. Our representative will be in touch shortly.',
+          });
+      }
+
+      function purchaseform() {
+        Swal.fire({
+          title: 'Subscription Form',
+          showConfirmButton: false,
+          html: `
+              <form>
+                <br/>
+                <div class="mb-6 mx-8">
+                  <label for="fullName" class="block text-xs text-dark text-left"
+                    >Full Name*</label
+                  >
+                  <input
+                    type="text"
+                    name="fullName"
+                    placeholder="Adam Gelius"
+                    class="
+                      purchasename
+                      w-full
+                      border-0 border-b border-[#f1f1f1]
+                      focus:border-primary focus:outline-none
+                      py-4
+                    "
+                    required
+                  />
+                </div>
+                <div class="mb-6 mx-8">
+                  <label for="Company" class="block text-xs text-dark text-left"
+                    >Company*</label
+                  >
+                  <input
+                    type="text"
+                    name="companyName"
+                    placeholder="Company Name"
+                    class="
+                      purchasecompany
+                      w-full
+                      border-0 border-b border-[#f1f1f1]
+                      focus:border-primary focus:outline-none
+                      py-4
+                    "
+                    required
+                  />
+                </div>
+                <div class="mb-6 mx-8">
+                  <label for="email" class="block text-xs text-dark text-left"
+                    >Email*</label
+                  >
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="example@yourmail.com"
+                    class="
+                      purchaseemail
+                      w-full
+                      border-0 border-b border-[#f1f1f1]
+                      focus:border-primary focus:outline-none
+                      py-4
+                    "
+                    required
+                  />
+                </div>
+                <div class="mb-6 mx-8">
+                  <label for="phone" class="block text-xs text-dark text-left"
+                    >Phone*</label
+                  >
+                  <input
+                    type="text"
+                    name="phone"
+                    placeholder="+885 1254 5211 552"
+                    class="
+                      purchasephone
+                      w-full
+                      border-0 border-b border-[#f1f1f1]
+                      focus:border-primary focus:outline-none
+                      py-4
+                    "
+                    required
+                  />
+                </div>
+                <br/>
+                <div class="mb-0">
+                  <button
+                    type="submit"
+                    name="submit"
+                    id="contact-submit"
+                    class="
+                      purchaseformsubmit
+                      inline-flex
+                      items-center
+                      justify-center
+                      py-4
+                      px-6
+                      rounded
+                      text-white
+                      bg-primary
+                      text-base
+                      font-medium
+                      hover:bg-dark
+                      transition
+                      duration-300
+                      ease-in-out
+                    "
+                  >
+                    Subscribe Now
+                  </button>
+                  <br>
+                  <br>
+                </div>
+              </form>
+          `,
+        });
       }
     </script>
   </body>
